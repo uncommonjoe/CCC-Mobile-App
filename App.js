@@ -1,8 +1,10 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
-import styles from "./src/assets/styles/styles";
-// import PrimaryButton from './src/assets/components/Buttons';
+import { Text, View, TouchableOpacity, SafeAreaView } from "react-native";
+import { StyleSheet } from "react-native";
+
+import styles from "./src/assets/styles/container.style";
+import PrimaryButton from './src/assets/components/buttons/PrimaryButton';
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -11,22 +13,22 @@ import { FontAwesome5, FontAwesome } from "@expo/vector-icons";
 
 function SermonScreen() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View
         style={{ width: "100%", flex: 1, marginTop: 64, alignItems: "center" }}
       >
         <Text>Latest Sermon</Text>
 
-        {/* <PrimaryButton title="Test Button" /> */}
+        <PrimaryButton title="Test Button"/>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 function LordsDayScreen({ route, navigation }) {
   // let { userName, action } = route.params;
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View
         style={{ width: "100%", flex: 1, marginTop: 64, alignItems: "center" }}
       >
@@ -35,43 +37,43 @@ function LordsDayScreen({ route, navigation }) {
           {/* {userName} says to {action} */}
         </Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 function ConnectScreen() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View
         style={{ width: "100%", flex: 1, marginTop: 64, alignItems: "center" }}
       >
         <Text>Connect</Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 function PeopleScreen() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View
         style={{ width: "100%", flex: 1, marginTop: 64, alignItems: "center" }}
       >
         <Text>People</Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 function MoreScreen() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View
         style={{ width: "100%", flex: 1, marginTop: 64, alignItems: "center" }}
       >
         <Text>More</Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
