@@ -1,83 +1,18 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { Text, View, TouchableOpacity, SafeAreaView } from "react-native";
-import { StyleSheet } from "react-native";
 
-import styles from "./src/assets/styles/container.style";
-import PrimaryButton from './src/assets/components/buttons/PrimaryButton';
+import LatestSermonScreen from './src/screens/sermons/LatestSermonScreen';
+import LordsDayScreen from './src/screens/lordsDay/SundayScreen'
+import CalendarScreen from './src/screens/connect/CalendarScreen'
+import PeopleScreen from './src/screens/people/PeopleListScreen'
+import MoreScreen from './src/screens/more/MoreListScreen'
+
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome5, FontAwesome } from "@expo/vector-icons";
 
-function SermonScreen() {
-  return (
-    <SafeAreaView style={styles.container}>
-      <View
-        style={{ width: "100%", flex: 1, marginTop: 64, alignItems: "center" }}
-      >
-        <Text>Latest Sermon</Text>
-
-        <PrimaryButton title="Test Button"/>
-      </View>
-    </SafeAreaView>
-  );
-}
-
-function LordsDayScreen({ route, navigation }) {
-  // let { userName, action } = route.params;
-  return (
-    <SafeAreaView style={styles.container}>
-      <View
-        style={{ width: "100%", flex: 1, marginTop: 64, alignItems: "center" }}
-      >
-        <Text>Lord's Day</Text>
-        <Text>
-          {/* {userName} says to {action} */}
-        </Text>
-      </View>
-    </SafeAreaView>
-  );
-}
-
-function ConnectScreen() {
-  return (
-    <SafeAreaView style={styles.container}>
-      <View
-        style={{ width: "100%", flex: 1, marginTop: 64, alignItems: "center" }}
-      >
-        <Text>Connect</Text>
-      </View>
-    </SafeAreaView>
-  );
-}
-
-function PeopleScreen() {
-  return (
-    <SafeAreaView style={styles.container}>
-      <View
-        style={{ width: "100%", flex: 1, marginTop: 64, alignItems: "center" }}
-      >
-        <Text>People</Text>
-      </View>
-    </SafeAreaView>
-  );
-}
-
-function MoreScreen() {
-  return (
-    <SafeAreaView style={styles.container}>
-      <View
-        style={{ width: "100%", flex: 1, marginTop: 64, alignItems: "center" }}
-      >
-        <Text>More</Text>
-      </View>
-    </SafeAreaView>
-  );
-}
-
-// const Main = createStackNavigator();
 const BottomNavigation = createBottomTabNavigator();
 
 export default function App() {
@@ -118,36 +53,13 @@ export default function App() {
           inactiveTintColor: "gray",
         }}
       >
-        <BottomNavigation.Screen name="Sermons" component={SermonScreen} />
-        <BottomNavigation.Screen
-          name="Lord's Day"
-          component={LordsDayScreen}
-        />
-        <BottomNavigation.Screen
-          name="Connect"
-          component={ConnectScreen}
-        />
+        <BottomNavigation.Screen name="Sermons" component={LatestSermonScreen} />
+        <BottomNavigation.Screen name="Lord's Day" component={LordsDayScreen} />
+        <BottomNavigation.Screen name="Connect" component={CalendarScreen} />
         <BottomNavigation.Screen name="People" component={PeopleScreen} />
         <BottomNavigation.Screen name="More" component={MoreScreen} />
       </BottomNavigation.Navigator>
     </NavigationContainer>
-    // <NavigationContainer>
-    //   <Main.Navigator
-    //     screenOptions={{
-    //       headerStyle: {
-    //         backgroundColor: "#23A6D9",
-    //       },
-    //     }}
-    //   >
-    //     <Main.Screen name="Home" component={HomeScreen} />
-    //     <Main.Screen name="Music" component={MusicScreen} />
-    //     <Main.Screen name="Settings" component={SettingsTabs} />
-    //   </Main.Navigator>
-    // </NavigationContainer>
-    // <View style={styles.container}>
-    //   <Text>Open up App.js to start working on your app!</Text>
-    //   <StatusBar style="auto" />
-    // </View>
   );
 }
 

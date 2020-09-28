@@ -2,44 +2,25 @@ import React, { Component } from "react";
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 
 class PrimaryButton extends Component {
-	render() {
-		return (
-			<View style={styles.buttonWrapper}>
-        			<TouchableOpacity
-          				style={styles.button}
-        			>
-          				<Text color="red" style={styles.buttonText}>
-            				Test
-          				</Text>
-				</TouchableOpacity>
-			</View>
-   		);
-  	}
+  render() {
+    return (
+      <View style={styles.buttonWrapper}>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>
+            Test
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 }
-
-// function PrimaryButton({ title, action }) {
-//   return (
-//     <View style={styles.buttonWrapper}>
-// 	<TouchableOpacity
-// 		style={styles.button}
-// 		onPress={() => {
-// 			{action}
-// 		}}
-// 	>
-// 		<Text color="red" style={styles.buttonText}>
-// 			{title}
-// 		</Text>
-// 	</TouchableOpacity>
-//     </View>
-//   );
-// }
 
 const styles = StyleSheet.create({
   buttonWrapper: {
-	flex: 1,
-	backgroundColor: "#fff",
-	alignItems: "center",
-	justifyContent: "center",
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
   button: {
     backgroundColor: "white",
@@ -59,7 +40,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "black",
     paddingBottom: 20,
-    fontSize: 18,    
+    fontSize: 18,
   },
 });
 
