@@ -1,24 +1,29 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { Text, View, SafeAreaView, TouchableOpacity } from "react-native";
-import styled from "styled-components";
+import { View, SafeAreaView } from "react-native";
+import { StatusBar } from "expo-status-bar";
 
 import styles from "../../assets/styles/container.style";
-import DefaultButton from "../../assets/components/buttons/DefaultButton"
+import { Header, HeaderTitle } from "../../assets/components/header/Header";
+import { TitleText, Text } from "../../assets/styles/Text";
 
 export default function LatestSermonScreen() {
   return (
     <View style={styles.container}>
       <StatusBar />
+      <Header>
+        <HeaderTitle>Lord's Day</HeaderTitle>
+      </Header>
 
       <SafeAreaView>
-        <Text>this is the day</Text>
+        <View style={styles.page}>
+          <TitleText>Order of Worship</TitleText>
+          <Text>Sep 27 2020</Text>
 
-	      <DefaultButton>
-		      <Text>Standard Button</Text>
-	      </DefaultButton>
+          <View>
+            <Text>Welcome and Introduction</Text>
+          </View>
+        </View>
       </SafeAreaView>
     </View>
   );
 }
-

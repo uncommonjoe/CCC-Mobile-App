@@ -7,7 +7,6 @@ import CalendarScreen from './src/screens/connect/CalendarScreen'
 import PeopleScreen from './src/screens/people/PeopleListScreen'
 import MoreScreen from './src/screens/more/MoreListScreen'
 
-
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
