@@ -7,6 +7,6 @@ export default StyleSheet.create({
     backgroundColor: "#fff",
   },
   page: {
-    padding: 25,
+    padding: 25
   },
 });

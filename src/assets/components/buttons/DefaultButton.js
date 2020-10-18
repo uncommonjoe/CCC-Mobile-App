@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import { TouchableOpacity } from "react-native";
+import styled from "styled-components/native";
 
 const DefaultButton = styled.TouchableOpacity`
   background-color: #fff;

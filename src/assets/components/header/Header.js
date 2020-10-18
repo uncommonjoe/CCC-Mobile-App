@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/native";
 
 const Header = styled.View`
   background-color: white;

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "cccTest",
-    "slug": "cccTest",
+    "name": "Cornerstone Community Church",
+    "slug": "cornerstone-community-church",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
