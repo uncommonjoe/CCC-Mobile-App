@@ -1,17 +1,20 @@
-import React from "react";
-import { View, Image, SafeAreaView, ScrollView, Dimensions } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Image, SafeAreaView, ScrollView, Dimensions, ActivityIndicator } from "react-native";
 import { StatusBar } from "expo-status-bar";
+
 import styles from "../../assets/styles/container.style";
 import DefaultButton from "../../assets/components/buttons/DefaultButton";
 import { Header } from "../../assets/components/header/Header";
 import { ImageContainer, ImageContainerImage } from "../../assets/components/container/ImageContainer";
 import { TitleText, Text } from "../../assets/styles/Text";
-import Verse from "../../api/DailyVerse.js";
+import Verse from "../../api/GetDailyVerse.js";
 import CurrentDate from "../../assets/components/CurrentDate.js";
-
-const { windowWidth } = Dimensions.get("window");
-
+import LatestSermon from "../../api/GetLatestSermon.js";
+import SeriesList from "../../api/GetSeriesList.js";
+  
 export default function LatestSermonScreen() {
+	const { windowWidth } = Dimensions.get("window");
+
 	return (
 		<View style={styles.container}>
 			<StatusBar barStyle="light-content" />
@@ -24,39 +27,18 @@ export default function LatestSermonScreen() {
 					<View style={styles.page}>
 						<TitleText style={{ marginBottom: 25 }}>Latest Sermon</TitleText>
 
-						<ImageContainer>
-							<ImageContainerImage source={require("../../../src/assets/img/joel.png")} />
-
-							<Text large bold style={{ marginTop: 25, marginLeft: 15 }}>Christian Fasting (Part 3)</Text>
-							<Text colorLight style={{ marginLeft: 15, marginBottom: 10 }}>Jeff Romans</Text>
-						</ImageContainer>
+						<LatestSermon />
 					</View>
 
 					<View style={{marginHorizontal: 25}}>
 						<TitleText>Series</TitleText>
 					</View>
 
-					<ScrollView
-						style={{ paddingVertical: 15, paddingHorizontal: 25 }}
-						horizontal={true}
-						snapToAlignment={"center"}
-						contentInset={{ top: 0, left: 0, bottom: 0, right: 50, }}>
-						<ImageContainer horList>
-							<ImageContainerImage source={require("../../../src/assets/img/joel.png")} />
-						</ImageContainer>
-
-						<ImageContainer horList>
-							<ImageContainerImage source={require("../../../src/assets/img/joel.png")} />
-						</ImageContainer>
-
-						<ImageContainer horList>
-							<ImageContainerImage source={require("../../../src/assets/img/joel.png")} />
-						</ImageContainer>
-					</ScrollView>
+					<SeriesList />
 
 					<View style={styles.page}>
 						<TitleText>Verse of the Day</TitleText>
-						<Text colorLight style={{ marginBottom: 10 }}><CurrentDate /></Text>
+						<Text colorlight="true" style={{ marginBottom: 10 }}><CurrentDate /></Text>
 
 						<Verse />
 					</View>

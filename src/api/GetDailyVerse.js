@@ -17,9 +17,7 @@ class Verse extends Component {
 			method: "GET",
 		})
 			.then((response) => response.json())
-			.then((responseJson) => {
-				console.log(responseJson);
-				this.setState({
+			.then((responseJson) => {				this.setState({
 					data: responseJson.verse.details,
 				});
 			})
@@ -40,8 +38,8 @@ class Verse extends Component {
 					<ActivityIndicator />
 				) : (
 					<View>
-						<Text large>{this.state.data.text}</Text>
-						<Text bold>{this.state.data.reference}</Text>
+						<Text textlarge="true">{this.state.data.text}</Text>
+						<Text textbold="true">{this.state.data.reference}</Text>
 					</View>
 				)}
 			</View>

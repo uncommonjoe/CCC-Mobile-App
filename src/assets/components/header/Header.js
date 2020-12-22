@@ -5,7 +5,6 @@ const Header = styled.View`
   padding: 70px 20px 25px 20px;
   align-self: stretch;
   align-items: center;
-  color: red;
   box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.15);
   height: 120px;
 
