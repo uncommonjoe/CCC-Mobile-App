@@ -30,5 +30,3 @@ const HeaderBackButton = styled.Button`
 `;
 
 export { Header, HeaderTitle, HeaderBackButton };
-
-// margin: -25px -25px 25px -25px;

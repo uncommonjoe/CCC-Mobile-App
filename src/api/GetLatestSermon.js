@@ -46,7 +46,6 @@ class LatestSermon extends Component {
 		const entities = new Html5Entities();
 		const { navigation } = this.props;
 
-
 		return (
 			<View>
 				{isLoading ? (
@@ -54,7 +53,9 @@ class LatestSermon extends Component {
 				) : (
 					<ImageContainerButton
 						onPress={() => {
-							navigation.navigate("SermonScreen", { name: 'Brent' });
+							navigation.navigate("Sermon", { 
+								sermon: this.state.data 
+							});
 						}}
 					>
 						{this.state.data.sermons_blog_image_url ? (
@@ -64,7 +65,7 @@ class LatestSermon extends Component {
 								}}
 							/>
 						) : (
-							<Text>Hello world</Text>
+							<Text></Text>
 						)}
 
 						<Text
