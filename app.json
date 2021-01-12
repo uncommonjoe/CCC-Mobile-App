@@ -17,11 +17,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.uncommonjoe.cornerstonecommunitychurch"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
     },
-    "description": ""
+    "description": "",
+    "android": {
+      "package": "com.uncommonjoe.cornerstonecommunitychurch"
+    }
   }
 }
