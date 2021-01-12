@@ -4,6 +4,7 @@ import React from "react";
 import LatestSermonScreen from "./src/screens/sermons/LatestSermonScreen";
 import SermonScreen from "./src/screens/sermons/SermonScreen";
 import SermonSeriesList from "./src/screens/sermons/SeriesListScreen";
+import SermonListenModal from "./src/screens/sermons/SermonListenModal";
 import LordsDayScreen from "./src/screens/lordsDay/SundayScreen";
 import CalendarScreen from "./src/screens/connect/CalendarScreen";
 import PeopleScreen from "./src/screens/people/PeopleListScreen";
@@ -14,17 +15,18 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome5, FontAwesome } from "@expo/vector-icons";
 
-const Stack = createStackNavigator();
+const Sermons = createStackNavigator();
 const BottomNavigation = createBottomTabNavigator();
 
 var createHomeStack = () => (
-	<Stack.Navigator
+	<Sermons.Navigator
+	mode="modal"
 		screenOptions={() => ({
 			gestureEnabled: true,
 		})}
 	>
-		<Stack.Screen name="Home" component={LatestSermonScreen} options={{headerShown: false}} />
-		<Stack.Screen name="Sermon" component={SermonScreen} 
+		<Sermons.Screen name="Home" component={LatestSermonScreen} options={{headerShown: false}} />
+		<Sermons.Screen name="Sermon" component={SermonScreen} 
 			options={{
 				title: '',
 				headerStyle: {
@@ -34,8 +36,19 @@ var createHomeStack = () => (
 				headerTintColor: '#1A1B1D',
 			}}
 		  />
-		<Stack.Screen name="SermonSeries" component={SermonSeriesList} />
-	</Stack.Navigator>
+		<Sermons.Screen name="SermonSeries" component={SermonSeriesList} />
+		<Sermons.Screen name="SermonListen" component={SermonListenModal} 
+			options={{
+				animationEnabled: true,
+				title: '',
+				headerStyle: {
+					backgroundColor: "white",
+					borderBottomWidth: 0,
+				},
+				headerTintColor: '#1A1B1D',
+			}}
+		  />
+	</Sermons.Navigator>
 );
 
 export default function App() {
