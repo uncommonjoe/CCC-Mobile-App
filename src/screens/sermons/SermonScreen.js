@@ -1,23 +1,19 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
-import { View, Image, SafeAreaView, ScrollView, Dimensions, ActivityIndicator, Button } from "react-native";
+import React from "react";
+import { View, SafeAreaView, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Video } from 'expo-av';
 import YoutubePlayer from "react-native-youtube-iframe";
 
 import styles from "../../assets/styles/container.style";
-import { Header } from "../../assets/components/header/Header";
-import { TitleText, Text } from "../../assets/styles/Text";
-import DefaultButton from "../../assets/components/buttons/DefaultButton";
+import { Text } from "../../assets/styles/Text";
+import { DefaultButton } from "../../assets/components/buttons/Buttons";
 import { Html5Entities } from "html-entities";
 
 export default function SermonScreen({ route, navigation }) {
 	const sermon = route.params.sermon;
 	const entities = new Html5Entities();
 	const youtubeVideoKey = entities.decode(
-						sermon.sermon_video_url
-							.split('https://youtu.be/')
-							.pop()
-						);
+		sermon.sermon_video_url.split("https://youtu.be/").pop()
+	);
 	const videoUrl = "https://www.youtube.com/embed/" + youtubeVideoKey;
 
 	return (
@@ -37,28 +33,29 @@ export default function SermonScreen({ route, navigation }) {
 					<Text
 						textlarge="true"
 						textbold="true"
-						style={{ marginTop: 25}}
+						style={{ marginTop: 25 }}
 					>
 						{entities.decode(sermon.title.rendered)}
 					</Text>
 
 					<Text colorlight="true">
 						{entities.decode(
-								sermon.sermons_blog_preacher
-									.split('">')
-									.pop()
-									.split("</")[0]
-							)}
+							sermon.sermons_blog_preacher
+								.split('">')
+								.pop()
+								.split("</")[0]
+						)}
 					</Text>
 
 					<Text>{entities.decode(sermon.bible_passage)}</Text>
 
 					<DefaultButton
 						onPress={() => {
-							navigation.navigate("SermonListen", { 
-								sermon: sermon
+							navigation.navigate("SermonListen", {
+								sermon: sermon,
 							});
-						}}>
+						}}
+					>
 						<Text>Listen Now</Text>
 					</DefaultButton>
 				</SafeAreaView>

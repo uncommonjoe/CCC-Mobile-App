@@ -1,24 +1,30 @@
-import React, { Component  } from "react";
+import React, { Component } from "react";
 import { View, SafeAreaView, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Audio } from 'expo-av';
+import { Audio } from "expo-av";
+import { FontAwesome5 } from "@expo/vector-icons";
+import Slider from "@react-native-community/slider";
+import { Dimensions } from "react-native";
 
 import styles from "../../styles/container.style";
-import { Text } from "../../styles/Text";
-import DefaultButton from "../buttons/DefaultButton";
+import { TitleText, Text } from "../../styles/Text";
+import { NoStyleButton } from "../buttons/Buttons";
 import { ImageContainerImage } from "../container/ImageContainer";
 import AudioSlider from "./AudioSlider";
 
 class AudioPlayer extends Component {
 	constructor(props) {
 		super(props);
-	
+
+		const windowWidth = Dimensions.get("window").width;
+		this.coverDimension = windowWidth - 100;
+
 		this.sermon = this.props.data;
 		this.source = this.sermon.sermon_audio;
 		this.soundObject = new Audio.Sound();
 
 		this.state = {
-			title: "Play",
+			title: "play",
 			isPlaybackAllowed: true,
 			isPlaying: false,
 			muted: false,
@@ -26,173 +32,225 @@ class AudioPlayer extends Component {
 			shouldCorrectPitch: false,
 			shouldPlay: false,
 			shouldCorrectPitch: false,
-			soundDuration: null,
+			soundDuration: 40,
 			soundPosition: 0,
 			volume: 1,
 		};
 
-		this.soundObject.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate)  
-		this.soundObject.loadAsync({
-			uri: this.source,
-			progressUpdateIntervalMillis: 500,
-			rate: 1,
-			shouldCorrectPitch: false,
-			shouldPlay: false,
-			volume: 1,
-			duration: this.sermon.sermon_audio_duration,
-		}, {
-			shouldPlay: false,
-			volume: 1,
-		});
-		
+		this.soundObject.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate);
+		this.soundObject.loadAsync(
+			{
+				uri: this.source,
+				progressUpdateIntervalMillis: 500,
+				rate: 1,
+				shouldCorrectPitch: false,
+				shouldPlay: false,
+				volume: 1,
+				duration: this.sermon.sermon_audio_duration,
+			},
+			{
+				shouldPlay: false,
+				volume: 1,
+			}
+		);
+
 		const status = this.soundObject.getStatusAsync();
 		this.setState({ duration: status.durationMillis });
 		console.log(this.soundObject);
 	}
 
 	audioPlayPause = async () => {
-		if(this.state.playing){
-			this.soundObject.pauseAsync(); 
+		if (this.state.playing) {
+			this.soundObject.pauseAsync();
 			this.setState({
 				playing: false,
-				title: "Play"
-			})
-		}
-		else {
+				title: "play",
+			});
+		} else {
 			this.soundObject.playAsync();
 			this.setState({
 				playing: true,
-				title: "Pause"
-			})
+				title: "pause",
+			});
 		}
-	}
+	};
 
 	audioAdjustPosition = async (position) => {
 		const status = await this.soundObject.getStatusAsync();
-		//let durationLeft = status["durationMillis"] - status["positionMillis"];
 		let audioPosition = status["positionMillis"];
 		let move;
 
-		switch(position){
+		switch (position) {
 			case "forward":
-				move = audioPosition + 15000;
+				move = audioPosition + 30000;
 				console.log("position: " + move);
-			break;
+				break;
 
 			case "backward":
-				move = (audioPosition < 15000 ) ? 0 : audioPosition - 15000;
+				move = audioPosition < 15000 ? 0 : audioPosition - 15000;
 				console.log("position: " + move);
-			break;
-
-			case "drag":
-				move = audioPosition;
-				console.log("drag: " + move);
-			break;
+				break;
 		}
 
-		this.soundObject.playFromPositionAsync(move)
-	}
+		this.soundObject.playFromPositionAsync(move);
+	};
 
 	onPlaybackStatusUpdate = (status) => {
 		if (status.isLoaded) {
-		  this.setState({
-			soundDuration: status.durationMillis / 1000 ?? null,
-			soundPosition: status.positionMillis / 1000,
-			shouldPlay: status.shouldPlay,
-			isPlaying: status.isPlaying,
-			rate: status.rate,
-			muted: status.isMuted,
-			volume: status.volume,
-			shouldCorrectPitch: status.shouldCorrectPitch,
-			isPlaybackAllowed: true,
-		});
-
+			this.setState({
+				soundDuration: status.durationMillis / 1000 ?? null,
+				soundPosition: status.positionMillis / 1000,
+				shouldPlay: status.shouldPlay,
+				isPlaying: status.isPlaying,
+				rate: status.rate,
+				muted: status.isMuted,
+				volume: status.volume,
+				shouldCorrectPitch: status.shouldCorrectPitch,
+				isPlaybackAllowed: true,
+			});
 		} else {
-		  this.setState({
-			soundDuration: null,
-			soundPosition: null,
-			isPlaybackAllowed: false,
-		  });
-		  if (status.error) {
-			console.log(`FATAL PLAYER ERROR: ${status.error}`);
-		  }
+			this.setState({
+				soundDuration: null,
+				soundPosition: null,
+				isPlaybackAllowed: false,
+			});
+			if (status.error) {
+				console.log(`FATAL PLAYER ERROR: ${status.error}`);
+			}
 		}
-	  };
+	};
 
-	  seek(time) {
+	seek = (time) => {
 		time = Math.floor(time);
-		//this.refs.audioElement && this.refs.audioElement.seek(time);
 		this.setState({
-		  currentPosition: time,
-		  paused: false,
+			currentPosition: time,
+			paused: false,
 		});
-	  }
+	};
 
 	render() {
 		return (
-			<View style={styles.container}>
+			<View style={(styles.container, { paddingHorizontal: 50 })}>
 				<StatusBar barStyle="light-content" />
 
 				<ScrollView contentInsetAdjustmentBehavior="automatic">
 					<SafeAreaView>
-
 						<ImageContainerImage
 							source={{
 								uri: this.sermon.sermons_blog_image_url,
 							}}
-						/>
-					
-						<Text>Title: {this.sermon.title.rendered}</Text>
-						{/* <Text>{this.sermon.sermon_audio}</Text> */}
-
-						<AudioSlider 
-							onSeek={this.seek.bind(this.state.soundPosition)}
-							trackLength={Math.floor(this.state.soundDuration)}
-							onSlidingStart={() => this.setState({ paused: true })}
-							currentPosition={this.state.soundPosition}
+							style={{
+								width: this.coverDimension,
+								height: this.coverDimension,
+							}}
 						/>
 
-						{/* <Slider
-							step={1}
-							value={totalQuantity}
-							maximumValue={Math.floor(this.state.soundDuration)}
-							minimumValue={0}
-							onSlidingComplete={value => setTotalQuantity(value)}
-							onValueChange={value => setDisplayTotalQuantity(value)}
-						/> */}
-
-
-						{/* <Slider
+						<Slider
+							style={{ marginTop: 25 }}
 							value={this.state.soundPosition}
-							onValueChange={(e) => setValue(e)}
-							onTouchEnd={() => setIsTouchEnded(true)}
-							onTouchStart={() => setIsTouchEnded(false)}
+							//onValueChange={(e) => setValue(e)}
+							// onTouchEnd={() => setIsTouchEnded(true)}
+							// onTouchStart={() => setIsTouchEnded(false)}
 							maximumValue={Math.floor(this.state.soundDuration)}
 							minimumValue={0}
 							step={1}
-							minimumTrackTintColor="#307ecc"
-         					maximumTrackTintColor="#000000"
-						/> */}
+							minimumTrackTintColor="#1A1B1D"
+							maximumTrackTintColor="#D1D1D1"
+							thumbTintColor="#1A1B1D"
+						/>
 
-						
+						<View
+							style={{
+								flexDirection: "row",
+								justifyContent: "space-between",
+								alignItems: "center",
+								marginBottom: 25,
+							}}
+						>
+							<Text
+								style={{ fontSize: 12, fontColor: "#D1D1D1" }}
+							>
+								{Math.floor(this.state.soundPosition / 60)}:
+								{String(
+									Math.floor(this.state.soundPosition % 60)
+								).padStart(2, "0")}
+							</Text>
 
+							<Text
+								style={{ fontSize: 12, fontColor: "#D1D1D1" }}
+							>
+								{this.sermon.sermon_audio_duration}
+							</Text>
+						</View>
 
-						{/* <Text>{Math.floor(this.state.soundPosition / 60)}:{String(Math.floor(this.state.soundPosition % 60)).padStart(2, "0")}</Text>
-						<Text>{this.sermon.sermon_audio_duration}</Text> */}
+						<View style={styles.flexRow}>
+							<TitleText>{this.sermon.title.rendered}</TitleText>
+							{/* <Text>{this.sermon.sermon_audio}</Text> */}
+						</View>
 
+						<View
+							style={{
+								flexDirection: "row",
+								justifyContent: "center",
+								alignItems: "center",
+								marginTop: 25,
+							}}
+						>
+							<NoStyleButton
+								onPress={() => {
+									this.audioAdjustPosition("backward");
+								}}
+								style={styles.flexRow}
+							>
+								<FontAwesome5
+									name="backward"
+									size={25}
+									style={{
+										marginRight: 5,
+									}}
+								></FontAwesome5>
 
-						<DefaultButton onPress={() => { this.audioAdjustPosition("backward"); }}>
-							<Text>-15</Text>
-						</DefaultButton>
+								<Text style={{ fontWeight: "bold" }}>15</Text>
+							</NoStyleButton>
 
-						<DefaultButton onPress={() => { this.audioPlayPause(); }}>
-							<Text>{this.state.title}</Text>
-						</DefaultButton>
+							<NoStyleButton
+								onPress={() => {
+									this.audioPlayPause();
+								}}
+								style={{
+									backgroundColor: "#1A1B1D",
+									width: 80,
+									height: 80,
+									borderRadius: 40,
+									alignItems: "center",
+									justifyContent: "center",
+									marginHorizontal: 10,
+								}}
+							>
+								<FontAwesome5
+									name={this.state.title}
+									size={35}
+									style={{ color: "white" }}
+								></FontAwesome5>
+							</NoStyleButton>
 
-						<DefaultButton onPress={() => { this.audioAdjustPosition("forward"); }}>
-							<Text>+15</Text>
-						</DefaultButton>
+							<NoStyleButton
+								onPress={() => {
+									this.audioAdjustPosition("forward");
+								}}
+								style={styles.flexRow}
+							>
+								<Text style={{ fontWeight: "bold" }}>30</Text>
 
+								<FontAwesome5
+									name="forward"
+									size={25}
+									style={{
+										marginLeft: 5,
+									}}
+								></FontAwesome5>
+							</NoStyleButton>
+						</View>
 					</SafeAreaView>
 				</ScrollView>
 			</View>

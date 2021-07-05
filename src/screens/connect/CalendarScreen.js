@@ -9,18 +9,18 @@ import { TitleText } from "../../assets/styles/Text";
 // const Tabs = createStackNavigator();
 
 export default function CalendarScreen() {
-  return (
-    <View style={styles.container}>
-      <StatusBar />
-      <Header>
-        <HeaderTitle>Calendar</HeaderTitle>
-      </Header>
+	return (
+		<View style={styles.container}>
+			<StatusBar />
+			<Header>
+				<HeaderTitle>Calendar</HeaderTitle>
+			</Header>
 
-      <SafeAreaView>
-        <View style={styles.page}>
-          <TitleText>Calendar</TitleText>
-        </View>
-      </SafeAreaView>
-    </View>
-  );
+			<SafeAreaView>
+				<View style={styles.page}>
+					<TitleText>Calendar</TitleText>
+				</View>
+			</SafeAreaView>
+		</View>
+	);
 }

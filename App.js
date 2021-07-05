@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 
 import LatestSermonScreen from "./src/screens/sermons/LatestSermonScreen";
@@ -20,34 +19,42 @@ const BottomNavigation = createBottomTabNavigator();
 
 var createHomeStack = () => (
 	<Sermons.Navigator
-	mode="modal"
+		mode="modal"
 		screenOptions={() => ({
 			gestureEnabled: true,
 		})}
 	>
-		<Sermons.Screen name="Home" component={LatestSermonScreen} options={{headerShown: false}} />
-		<Sermons.Screen name="Sermon" component={SermonScreen} 
+		<Sermons.Screen
+			name="Home"
+			component={LatestSermonScreen}
+			options={{ headerShown: false }}
+		/>
+		<Sermons.Screen
+			name="Sermon"
+			component={SermonScreen}
 			options={{
-				title: '',
+				title: "",
 				headerStyle: {
 					backgroundColor: "white",
 					borderBottomWidth: 0,
 				},
-				headerTintColor: '#1A1B1D',
+				headerTintColor: "#1A1B1D",
 			}}
-		  />
+		/>
 		<Sermons.Screen name="SermonSeries" component={SermonSeriesList} />
-		<Sermons.Screen name="SermonListen" component={SermonListenModal} 
+		<Sermons.Screen
+			name="SermonListen"
+			component={SermonListenModal}
 			options={{
 				animationEnabled: true,
-				title: '',
+				title: "",
 				headerStyle: {
 					backgroundColor: "white",
 					borderBottomWidth: 0,
 				},
-				headerTintColor: '#1A1B1D',
+				headerTintColor: "#1A1B1D",
 			}}
-		  />
+		/>
 	</Sermons.Navigator>
 );
 
@@ -58,15 +65,14 @@ export default function App() {
 				tabBarOptions={{
 					activeTintColor: "#0C7B93",
 					inactiveTintColor: "rgba(26,27,29, .4)",
-					style:{
+					style: {
 						backgroundColor: "white",
 						borderTopWidth: 1,
-						borderTopColor: '#F0F0F0',
+						borderTopColor: "#F0F0F0",
 						justifyContent: "center",
 						height: 85,
 					},
 				}}
-
 				screenOptions={({ route }) => ({
 					tabBarIcon: ({ color, size }) => {
 						if (route.name === "Sermons") {
